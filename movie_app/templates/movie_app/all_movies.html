@@ -13,4 +13,7 @@
                     </li>
                 {% endfor %}
             </ul>
+            <h3> Средний бюджет - {{ agg.budjet__avg }}</h3>
+            <h3> Максимальный год выпуска - {{ agg.year__max }}</h3>
+            <h3> Средний рейтинг - {{ agg.rating__avg }}</h3>
         {% endblock%}
