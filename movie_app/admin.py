@@ -30,6 +30,15 @@ class RatingFilter(admin.SimpleListFilter):
 # for displaying additional columns in admin panel
 @admin.register(Movie)
 class Movie_admin(admin.ModelAdmin):
+    # # It's needed for setting certain parameters of a film with admin panel. So one can set only
+    # # those fields
+    # fields = ["name", "rating"]
+    # # It's the opposite of fields
+    # exclude = ["slug"]
+    # # By setting read only fields we prohobit a user to set parameters
+    # readonly_fields = ["year"]
+    # This variable is needed if we exclude urgent field but we want it to be filled
+    prepopulated_fields = {"slug": ("name", )}
     # We put here the names of column to add
     list_display = ["name", "rating", "currency", "budjet", "rating_status"]
     # by using list_editable we can edit our data. We must delete the first
