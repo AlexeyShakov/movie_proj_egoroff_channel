@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Movie
+from .models import Movie, Director
 from django.db.models import QuerySet
+
+# Making our model is seen in the admin panel
+admin.site.register(Director)
+
 
 class RatingFilter(admin.SimpleListFilter):
 
@@ -40,10 +44,10 @@ class Movie_admin(admin.ModelAdmin):
     # This variable is needed if we exclude urgent field but we want it to be filled
     prepopulated_fields = {"slug": ("name", )}
     # We put here the names of column to add
-    list_display = ["name", "rating", "currency", "budjet", "rating_status"]
+    list_display = ["name", "rating", "director", "budjet", "rating_status"]
     # by using list_editable we can edit our data. We must delete the first
     # attribute list_display from list_editable as it is a LINK!!!!
-    list_editable = ["rating", "currency", "budjet"]
+    list_editable = ["rating", "director", "budjet"]
     # ordering is needed for ordering our data
     ordering = ["-rating"]
     list_per_page = 3
