@@ -16,6 +16,15 @@ class Director(models.Model):
         return reverse("director_detail", args=[self.id])
 
 
+# For one-to-one links
+class DressingRoom(models.Model):
+    floor = models.IntegerField()
+    cabin_number = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.floor} {self.cabin_number}"
+
+
 class Actor(models.Model):
     MALE = "M"
     FEMALE = "F"
@@ -27,6 +36,8 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
+    # For linking to the DrassingRoom table
+    dressing = models.OneToOneField(DressingRoom, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         if self.gender == "M":

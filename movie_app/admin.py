@@ -1,10 +1,18 @@
 from django.contrib import admin
-from .models import Movie, Director, Actor
+from .models import Movie, Director, Actor, DressingRoom
 from django.db.models import QuerySet
 
 # Making our models are seen in the admin panel
 admin.site.register(Director)
 admin.site.register(Actor)
+# admin.site.register(DressingRoom)
+
+
+# Creating own admin panel for DressingRoom table
+@admin.register(DressingRoom)
+class DressingRoom_admin(admin.ModelAdmin):
+    # We put here the names of column to add
+    list_display = ["floor", "cabin_number", "actor"]
 
 
 class RatingFilter(admin.SimpleListFilter):
