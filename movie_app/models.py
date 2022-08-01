@@ -16,6 +16,28 @@ class Director(models.Model):
         return reverse("director_detail", args=[self.id])
 
 
+class Actor(models.Model):
+    MALE = "M"
+    FEMALE = "F"
+    # It's needed for creation own Field
+    GENDERS = [
+        (MALE, 'Мужчина'),
+        (FEMALE, 'Женщина'),
+    ]
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
+
+    def __str__(self):
+        if self.gender == "M":
+            return f" Актёр {self.first_name} {self.last_name}"
+        else:
+            return f" Актриса {self.first_name} {self.last_name}"
+
+    def get_url(self):
+        return reverse("actor_detail", args=[self.id])
+
+
 class Movie(models.Model):
 
     EUR = "EUR"
@@ -36,6 +58,8 @@ class Movie(models.Model):
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=RUB)
     # Making one-to-many link
     director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
+    #Making many-to-many links
+    actors = models.ManyToManyField(Actor, null=True)
 
     # # if we don't have prepopulated_fields for filling slug in admin.py we have to use this method
     # def save(self, *args, **kwargs):

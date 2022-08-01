@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Movie, Director
+from .models import Movie, Director, Actor
 from django.db.models import QuerySet
 
-# Making our model is seen in the admin panel
+# Making our models are seen in the admin panel
 admin.site.register(Director)
+admin.site.register(Actor)
 
 
 class RatingFilter(admin.SimpleListFilter):
@@ -45,6 +46,7 @@ class Movie_admin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name", )}
     # We put here the names of column to add
     list_display = ["name", "rating", "director", "budjet", "rating_status"]
+    filter_horizontal = ["actors"]
     # by using list_editable we can edit our data. We must delete the first
     # attribute list_display from list_editable as it is a LINK!!!!
     list_editable = ["rating", "director", "budjet"]
