@@ -6,4 +6,12 @@
             <h2> Имя - {{ actor.first_name }} </h2>
             <h3> Фамилия - {{ actor.last_name }}</h3>
             <h3> Пол - {{ actor.gender }} </h3>
+            <h3> Список фильмов:</h3>
+             <ul>
+{#                related_name(see in the models.py file).all is the special attribute which allows us to get the information #}
+{#                from the linked table#}
+                {% for movie in actor.movies.all %}
+                    <li> {{ movie }}</li>
+                {% endfor %}
+             </ul>
         {% endblock%}

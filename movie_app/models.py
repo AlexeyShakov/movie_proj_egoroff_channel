@@ -57,9 +57,10 @@ class Movie(models.Model):
     slug = models.SlugField(default="", null=True)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=RUB)
     # Making one-to-many link
-    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
+    # related_name is needed for naming attribute for getting the information from the linked table
+    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name="movies")
     #Making many-to-many links
-    actors = models.ManyToManyField(Actor, null=True)
+    actors = models.ManyToManyField(Actor, null=True, related_name="movies")
 
     # # if we don't have prepopulated_fields for filling slug in admin.py we have to use this method
     # def save(self, *args, **kwargs):
@@ -72,3 +73,5 @@ class Movie(models.Model):
 
     def get_url(self):
         return reverse("movie_detail", args=[self.slug])
+
+# python manage.py shell_plus --print-sql
